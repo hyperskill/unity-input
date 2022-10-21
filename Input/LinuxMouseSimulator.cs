@@ -23,13 +23,15 @@ namespace LinuxInput
         ILinuxMouseSimulator RightButtonDoubleClick();
 
         ILinuxMouseSimulator Sleep(int millsecondsTimeout);
+
+		ILinuxMouseSimulator ReleaseAll();
     }
 
     public class LinuxMouseSimulator : ILinuxMouseSimulator
     {
-        
-        private readonly ILinuxInputSimulator _inputSimulator;
         private BashShell bashShell;
+
+		private readonly ILinuxInputSimulator _inputSimulator;
         public LinuxMouseSimulator(ILinuxInputSimulator inputSimulator)
         {
             bashShell = new BashShell();
@@ -98,6 +100,13 @@ namespace LinuxInput
         public ILinuxMouseSimulator Sleep(int millsecondsTimeout)
         {
             bashShell.RunBashCommand("xdotool sleep " + millsecondsTimeout);
+            return this;
+        }
+
+		public ILinuxMouseSimulator ReleaseAll()
+        {
+			RightButtonUp();
+			LeftButtonUp();
             return this;
         }
     }

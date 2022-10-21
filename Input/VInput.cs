@@ -105,6 +105,14 @@ public static class VInput
         else ISL.Keyboard.KeyUp(lkc);
     }
 
+	public static void ReleaseAll()
+    {
+        if (!os){
+			ISL.Mouse.ReleaseAll();
+			ISL.Keyboard.ReleaseAll();
+		}
+    }
+
     private static (VirtualKeyCode, VirtualLKeyCode) DefineKeyCode (KeyCode key)
     {
         switch (key)

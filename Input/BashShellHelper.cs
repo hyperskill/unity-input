@@ -6,7 +6,7 @@ namespace LinuxInput
 {
     public class BashShell
     {
-        public string RunBashCommand(string cmd, Dictionary<string, string> environmentVariables = null)
+        public int RunBashCommand(string cmd, Dictionary<string, string> environmentVariables = null)
         {
             using (var process = new Process())
             {
@@ -25,11 +25,11 @@ namespace LinuxInput
                         process.StartInfo.EnvironmentVariables[variable.Key] = variable.Value;
                     }
                 }
-    
+                
                 process.Start();
                 var result = process.StandardOutput.ReadToEnd().Trim('\n').Trim('\r');
                 process.WaitForExit();
-                return result;
+                return process.Id;
             }
         }
     
